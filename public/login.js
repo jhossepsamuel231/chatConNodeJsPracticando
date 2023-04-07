@@ -3,16 +3,28 @@ let usuario
 const listUsers = [
     {
         username: 'jhosep',
-        password: '123'
+        password: '111'
     },
     {
         username: 'trejo',
-        password: '321'
+        password: '111'
     },
     {
         username: 'gerson',
         password: '111'
     },
+    {
+        username: 'nicolle',
+        password: '111'
+    },
+    {
+        username: 'matias',
+        password: '111'
+    },
+    {
+        username: 'mijael',
+        password: '111'
+    }
 ]
 
 const onLoadLogin = () => {

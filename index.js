@@ -1,35 +1,53 @@
-const path = require('path');
-const express = require('express');
-const app = express();
+const path = require('path')
+const express = require('express')
+const app = express()
 
-//settings
-app.set('port', process.env.PORT || 3000);
+const SocketIO = require('socket.io')
 
-//static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use((express.static(path.join(__dirname, "public"))))
 
-//start the server
-const server = app.listen(app.get('port'), () => {
-    console.log('server on port', app.get('port'));
-});
 
+
+
+
+app.set("port", process.env.PORT || 3000);
+
+const server = app.listen(app.get("port"), () => {
+    console.log("server port:", app.get("port"));
+})
+
+const io = SocketIO(server)
+
+
+// HOME 
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/index.html"))
+})
 
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/login.html'))
 })
 
-//websockets
-const SocketIO = require('socket.io');
-const io = SocketIO(server)
 
 io.on('connection', (socket) => {
+
     console.log('new connection', socket.id);
 
-    socket.on('chat:message', (data) => {
-        io.sockets.emit('chat:message', data)
+    socket.on("message", (data) => {
+        console.log(data);
+        socket.broadcast.emit("message", data)
     })
 
     socket.on('chat:typing', (data) => {
-        socket.broadcast.emit('chat:typing', data);
+        socket.broadcast.emit("chat:typing", data);
     })
+
+
+
 })
+
+/*
+
+
+
+*/
