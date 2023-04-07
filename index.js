@@ -14,6 +14,10 @@ const server = app.listen(app.get('port'), () => {
 });
 
 
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/login.html'))
+})
+
 //websockets
 const SocketIO = require('socket.io');
 const io = SocketIO(server)
